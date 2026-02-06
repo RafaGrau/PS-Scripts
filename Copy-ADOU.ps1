@@ -23,7 +23,7 @@ y genera un log compatible con CMTrace.exe.
 Distinguished Name (DN) de la Unidad Organizativa origen.
 
 Ejemplo:
-OU=Origen,DC=empresa,DC=local
+OU=Origen,DC=dominio,DC=local
 
 .PARAMETER OUDestino
 Distinguished Name (DN) de la Unidad Organizativa destino.
@@ -31,7 +31,7 @@ Distinguished Name (DN) de la Unidad Organizativa destino.
 Si no existe, será creada automáticamente.
 
 Ejemplo:
-OU=Destino,DC=empresa,DC=local
+OU=Destino,DC=dominio,DC=local
 
 .PARAMETER LinkGPO
 Indica que deben copiarse también los enlaces de GPO desde la OU origen
@@ -45,27 +45,17 @@ Si no se especifica, solo se copia la estructura de OUs y su configuración.
 .EXAMPLE
 Simulación completa sin realizar cambios en Active Directory:
 
-Copy-ADOU `
-  -OUOrigen "OU=Origen,DC=empresa,DC=local" `
-  -OUDestino "OU=Destino,DC=empresa,DC=local" `
-  -LinkGPO `
-  -WhatIf
+Copy-ADOU -OUOrigen "OU=Origen,DC=dominio,DC=local" -OUDestino "OU=Destino,DC=dominio,DC=local" -LinkGPO -WhatIf
 
 .EXAMPLE
 Ejecución real copiando estructura de OUs y enlaces de GPO:
 
-Copy-ADOU `
-  -OUOrigen "OU=Origen,DC=empresa,DC=local" `
-  -OUDestino "OU=Destino,DC=empresa,DC=local" `
-  -LinkGPO `
-  -Verbose
+Copy-ADOU -OUOrigen "OU=Origen,DC=dominio,DC=local" -OUDestino "OU=Destino,DC=dominio,DC=local" -LinkGPO -Verbose
 
 .EXAMPLE
 Copiar solo la estructura de OUs (sin GPOs):
 
-Copy-ADOU `
-  -OUOrigen "OU=Origen,DC=empresa,DC=local" `
-  -OUDestino "OU=Destino,DC=empresa,DC=local"
+Copy-ADOU -OUOrigen "OU=Origen,DC=dominio,DC=local" -OUDestino "OU=Destino,DC=dominio,DC=local"
 
 .NOTES
 Autor: Rafael Grau (depurado con ChatGPT)
@@ -296,5 +286,6 @@ foreach ($SourceOU in $SourceOUs) {
 }
 
 #endregion
+
 
 Write-CMTraceLog "Fin de ejecución"
